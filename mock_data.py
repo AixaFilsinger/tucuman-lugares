@@ -21,7 +21,7 @@ LUGARES_MOCK = [
 ]
 
 def cargar_datos():
-    print("🚀 Iniciando carga de datos mock...\n")
+    print(" Iniciando carga de datos mock...\n")
     exitosos = 0
     errores = 0
 
@@ -30,19 +30,19 @@ def cargar_datos():
             res = httpx.post(f"{API_URL}/lugares", json=lugar, timeout=30)
             if res.status_code == 201:
                 data = res.json()
-                print(f"✅ {data['nombre']} → categoría: {data['categoria']}")
+                print(f" {data['nombre']} → categoría: {data['categoria']}")
                 exitosos += 1
             elif res.status_code == 409:
-                print(f"⚠️  Duplicado saltado: {lugar['nombre']}")
+                print(f"  Duplicado saltado: {lugar['nombre']}")
             else:
-                print(f"❌ Error en {lugar['nombre']}: {res.text}")
+                print(f" Error en {lugar['nombre']}: {res.text}")
                 errores += 1
             time.sleep(1)  # Pausa para no saturar la API de IA
         except Exception as e:
-            print(f"❌ Excepción en {lugar['nombre']}: {e}")
+            print(f" Excepción en {lugar['nombre']}: {e}")
             errores += 1
 
-    print(f"\n📊 Resultado: {exitosos} cargados, {errores} errores")
+    print(f"\n Resultado: {exitosos} cargados, {errores} errores")
 
 if __name__ == "__main__":
     cargar_datos()

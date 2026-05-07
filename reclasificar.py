@@ -30,7 +30,7 @@ def reclasificar():
             if res.status_code == 200:
                 print(f"✅ {lugar['nombre']} → {nueva_cat}")
             else:
-                print(f"❌ Error en {lugar['nombre']}")
+                print(f" Error en {lugar['nombre']}")
 
 if __name__ == "__main__":
     reclasificar()

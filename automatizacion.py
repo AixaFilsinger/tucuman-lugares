@@ -37,7 +37,7 @@ def guardar_log(resultado: dict):
 
 def ejecutar_flujo():
     print("=" * 50)
-    print(f"🚀 Iniciando flujo — {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f" Iniciando flujo — {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 50)
 
     resultado = {
@@ -52,13 +52,13 @@ def ejecutar_flujo():
     for lugar in FUENTE_NUEVA:
         resultado["total_procesados"] += 1
         nombre = lugar["nombre"]
-        print(f"\n📍 Procesando: {nombre}")
+        print(f"\n Procesando: {nombre}")
 
         try:
-            print(f"   🤖 Clasificando con IA...")
+            print(f"    Clasificando con IA...")
             categoria = clasificar_lugar(nombre, lugar.get("ubicacion", ""))
             descripcion = generar_descripcion(nombre, categoria, lugar.get("ubicacion", ""))
-            print(f"   📂 Categoría: {categoria}")
+            print(f"    Categoría: {categoria}")
 
             datos = {
                 "nombre": nombre,
@@ -71,7 +71,7 @@ def ejecutar_flujo():
             res = httpx.post(f"{API_URL}/lugares", json=datos, timeout=30)
 
             if res.status_code == 201:
-                print(f"   ✅ Insertado correctamente")
+                print(f"   Insertado correctamente")
                 resultado["insertados"] += 1
                 resultado["detalle"].append({
                     "nombre": nombre,
@@ -90,7 +90,7 @@ def ejecutar_flujo():
                 })
 
             else:
-                print(f"   ❌ Error: {res.text}")
+                print(f"   Error: {res.text}")
                 resultado["errores"] += 1
                 resultado["detalle"].append({
                     "nombre": nombre,
@@ -99,7 +99,7 @@ def ejecutar_flujo():
                 })
 
         except Exception as e:
-            print(f"   ❌ Excepción: {e}")
+            print(f"    Excepción: {e}")
             resultado["errores"] += 1
             resultado["detalle"].append({
                 "nombre": nombre,
@@ -112,13 +112,13 @@ def ejecutar_flujo():
     guardar_log(resultado)
 
     print("\n" + "=" * 50)
-    print("📊 RESUMEN DEL FLUJO")
+    print("# RESUMEN DEL FLUJO")
     print("=" * 50)
     print(f"   Total procesados : {resultado['total_procesados']}")
-    print(f"   ✅ Insertados     : {resultado['insertados']}")
-    print(f"   ⚠️  Duplicados     : {resultado['duplicados']}")
-    print(f"   ❌ Errores        : {resultado['errores']}")
-    print(f"   📝 Log guardado   : {LOG_FILE}")
+    print(f"   * Insertados     : {resultado['insertados']}")
+    print(f"     Duplicados     : {resultado['duplicados']}")
+    print(f"   x Errores        : {resultado['errores']}")
+    print(f"    Log guardado   : {LOG_FILE}")
     print("=" * 50)
 
     return resultado

@@ -8,9 +8,8 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODEL = "gemini-2.0-flash"
 
 def clasificar_lugar(nombre: str, ubicacion: str = "") -> str:
-    # Primero intentar con reglas (rápido, sin API)
+    # 1. Primero intentar con reglas (rápido y gratis)
     nombre_lower = nombre.lower()
-    
     reglas = {
         "bar": ["bar", "pub", "taberna", "cervecería", "birra"],
         "boliche": ["boliche", "disco", "club", "dance", "bailable"],
@@ -27,56 +26,35 @@ def clasificar_lugar(nombre: str, ubicacion: str = "") -> str:
             if palabra in nombre_lower:
                 return categoria
     
-    # Si no matchea por reglas, intentar con IA
-    try:
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=f"""Clasificá en UNA palabra: bar, boliche, café, restaurante, recital, cultural, otro.
-Lugar: "{nombre}"
-Respondé SOLO la categoría."""
-        )
-        resultado = response.text.strip().lower()
-        categorias_validas = ["bar", "boliche", "café", "restaurante", "recital", "cultural", "otro"]
-        for cat in categorias_validas:
-            if cat in resultado:
-                return cat
-        return "otro"
-    except Exception as e:
-        print(f"Error clasificando con IA, usando 'otro': {e}")
-        return "otro"
+    # 2. Si no matchea por reglas, intentar con IA (Prompt detallado)
     try:
         response = client.models.generate_content(
             model=MODEL,
             contents=f"""Sos un experto en locales nocturnos y gastronómicos de Tucumán, Argentina.
-Clasificá este lugar en UNA de estas categorías:
-- bar: lugar para tomar tragos/cervezas, ambiente nocturno, música
-- boliche: discoteca, baile, música electrónica, tragos
-- café: cafetería, desayunos, meriendas
-- restaurante: comidas, almuerzos, cenas, pizzería, parrilla
-- recital: lugar de shows en vivo, música en vivo
-- cultural: teatro, museo, espacio cultural
-- otro: si no encaja en ninguna
+Clasificá este lugar en UNA de estas categorías: bar, boliche, café, restaurante, recital, cultural, otro.
 
 Lugar: "{nombre}"
 Ubicación: "{ubicacion}"
 
 Ejemplos:
 - "Bar Irlanda" → bar
-- "24 Street Coffee & Beer" → cafetería
+- "24 Street Coffee & Beer" → café
 - "PIPA pizzería" → restaurante
 - "Mr. JOHN'S & WARHOL" → boliche
-- "Dot Bar" → bar
 
 Respondé SOLO con la categoría en minúsculas, sin puntos ni explicaciones."""
         )
+        
         resultado = response.text.strip().lower()
         categorias_validas = ["bar", "boliche", "café", "restaurante", "recital", "cultural", "otro"]
+        
         for cat in categorias_validas:
             if cat in resultado:
                 return cat
         return "otro"
+        
     except Exception as e:
-        print(f"Error clasificando: {e}")
+        print(f"Error clasificando con IA: {e}")
         return "otro"
 
 def generar_descripcion(nombre: str, categoria: str, ubicacion: str = "") -> str:

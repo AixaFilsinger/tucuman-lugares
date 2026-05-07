@@ -103,7 +103,7 @@ def ejecutar_flujo():
                 "motivo": str(e)
             })
 
-        time.sleep(5)
+        time.sleep(10)
 
     guardar_log(resultado)
 

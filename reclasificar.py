@@ -1,8 +1,6 @@
-
 import httpx
 import time
 
-import httpx
 
 API_URL = "http://localhost:8000"
 
@@ -28,6 +26,7 @@ def reclasificar():
                 print(f" {lugar['nombre']} → {nueva_cat}")
             else:
                 print(f" Error en {lugar['nombre']}")
+            time.sleep(10)
 
 if __name__ == "__main__":
     reclasificar()

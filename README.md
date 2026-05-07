@@ -150,3 +150,18 @@ Doble capa de protección:
 - ✅ Detección de duplicados con doble capa (hash + IA)
 - ✅ Generación automática de descripciones con IA
 - ✅ Sistema de corrección manual desde el dashboard
+  ---
+
+## 🔄 Evidencia de Automatización — n8n Cloud
+
+El flujo en n8n Cloud se ejecuta automáticamente cada 24hs e inserta nuevos lugares directo en Supabase, sin intervención manual.
+
+El script `automatizacion.py` complementa esto permitiendo ejecución bajo demanda con registro de logs locales.
+
+**Flujo exportado:** `workflow_n8n.json`
+
+![n8n workflow](n8n_workflow.png)
+
+## 📊 Dashboard
+
+![Dashboard](dashboard.png)

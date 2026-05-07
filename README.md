@@ -49,7 +49,6 @@ tucuman-lugares/
 ├── automatizacion.py → Flujo automatizado con logs
 ├── dashboard.py      → Panel visual con Streamlit
 ├── logs.json         → Registro de cada ejecución del flujo
-└── .env              → Credenciales (no subir a git)
 ```
 
 ---

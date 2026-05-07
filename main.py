@@ -139,7 +139,7 @@ def desactivar_lugar(lugar_id: str):
         raise HTTPException(status_code=500, detail=f"Error desactivando: {res.text}")
     return {"mensaje": "Lugar desactivado", "id": lugar_id}
 
-# ── HEALTH CHECK ───────────────────────────────────────
+
 @app.get("/")
 def root():
-    return {"status": "ok", "mensaje": "API Tucumán Lugares funcionando 🎉"}
+    return {"status": "ok", "mensaje": "API Tucumán Lugares funcionando"}

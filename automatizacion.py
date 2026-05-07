@@ -1,8 +1,4 @@
-"""
-Script de automatización principal.
-Simula obtener datos de una fuente externa, los procesa con IA y los carga evitando duplicados.
-Ejecutar con: python automatizacion.py
-"""
+
 import httpx
 import time
 import json
@@ -12,7 +8,7 @@ from ia import clasificar_lugar, generar_descripcion
 API_URL = "http://localhost:8000"
 LOG_FILE = "logs.json"
 
-# ── FUENTE DE DATOS (simula scraping/API externa) ──────
+# ── simular scraping/API externa) ──────
 FUENTE_NUEVA = [
     {"nombre": "Antares Tucumán", "ubicacion": "Av. Soldati 401, Tucumán", "fuente": "mock"},
     {"nombre": "Bar El Cairo", "ubicacion": "Córdoba 21, Tucumán", "fuente": "mock"},

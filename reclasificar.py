@@ -1,7 +1,4 @@
-"""
-Script para reclasificar los lugares ya cargados con IA mejorada.
-Ejecutar con: python reclasificar.py
-"""
+
 import httpx
 import time
 
@@ -28,7 +25,7 @@ def reclasificar():
             )
             
             if res.status_code == 200:
-                print(f"✅ {lugar['nombre']} → {nueva_cat}")
+                print(f" {lugar['nombre']} → {nueva_cat}")
             else:
                 print(f" Error en {lugar['nombre']}")
 

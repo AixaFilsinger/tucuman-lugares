@@ -8,7 +8,7 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 MODEL = "gemini-2.0-flash"
 
 def clasificar_lugar(nombre: str, ubicacion: str = "") -> str:
-    # 1. Primero intentar con reglas (rápido y gratis)
+    # 1. Primero intenta con reglas
     nombre_lower = nombre.lower()
     reglas = {
         "bar": ["bar", "pub", "taberna", "cervecería", "birra"],

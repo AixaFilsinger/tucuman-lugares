@@ -1,7 +1,4 @@
-"""
-Script para cargar datos de prueba.
-Ejecutar con: python mock_data.py
-"""
+
 import httpx
 import time
 
